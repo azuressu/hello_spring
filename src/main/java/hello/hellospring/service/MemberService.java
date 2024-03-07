@@ -11,7 +11,11 @@ public class MemberService {
 
     // 서비스에 의존적으로 설계하는 편
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원 가입
