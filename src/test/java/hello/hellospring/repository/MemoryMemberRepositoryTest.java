@@ -4,7 +4,7 @@ import hello.hellospring.domain.Member;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import static org.assertj.core.api.Assertions.*; // assertThat을 사용하기 위한 import
 import java.util.List;
 
 class MemoryMemberRepositoryTest {
@@ -27,7 +27,7 @@ class MemoryMemberRepositoryTest {
         repository.save(member);
         Member result = repository.findById(member.getId()).get();
         // Assertions.assertEquals(member, result); // 기대하는 값
-        // assertthat.isEqualTo 가 안됨 .. 머지 ?
+        assertThat(result).isEqualTo(member);
     }
 
     @Test
@@ -41,7 +41,7 @@ class MemoryMemberRepositoryTest {
         repository.findByName("spring1");
 
         Member result = repository.findByName("spring1").get();
-//        assertThat(result).isEqualTo(member1);
+        assertThat(result).isEqualTo(member1);
     }
 
     @Test
@@ -52,9 +52,9 @@ class MemoryMemberRepositoryTest {
 
         Member member2 = new Member();
         member2.setName("spring2");
-        repository.findByName("spring1");
+        repository.save(member2);
 
         List<Member> result = repository.findAll();
-        // assertThat(result.size()).isEqualTo(2);
+        assertThat(result.size()).isEqualTo(2);
     }
 }
